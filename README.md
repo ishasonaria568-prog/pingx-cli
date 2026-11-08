@@ -1,35 +1,38 @@
 # PINGX — Lightweight Network Ping Utility
 
 <p align="center">
-  <strong>A Simple. Lightweight. Powerful CLI Ping Tool.</strong>
+  <strong>Simple. Lightweight. Powerful CLI Ping Tool.</strong>
 </p>
 
 <p align="center">
-  Built with Python | Designed for Kali Linux | MIT License
+  Python | ICMP | IPv4 & IPv6 | Kali Linux
 </p>
 
-**PINGX** is a lightweight, standalone Python-based command-line utility for testing network connectivity using ICMP Echo Requests and Replies. It provides essential network reachability information, response times, packet loss, and latency statistics directly in your terminal.
+PINGX is a lightweight Python-based command-line utility for testing network connectivity using ICMP Echo Requests and Replies.
+
+It provides essential network diagnostics, including response time, packet loss, TTL information and latency statistics directly from your terminal.
 
 Developed by **Isha Sonaria**.
 
 ## Features
 
-- **ICMP Ping:** Send ICMP Echo Requests and receive Echo Replies.
-- **IPv4 & IPv6:** Supports both IPv4 and IPv6 networking.
-- **DNS Resolution:** Resolve hostnames before sending packets.
-- **Packet Control:** Configure packet count and sending interval.
-- **Timeout Control:** Set the maximum waiting time for responses.
-- **RTT Measurement:** Display packet round-trip time in milliseconds.
-- **TTL Information:** Display TTL values when available.
-- **Packet Statistics:** View transmitted packets, received packets, and packet loss.
-- **Latency Statistics:** Calculate minimum, average, maximum, and mean deviation (mdev).
-- **Continuous Ping:** Continue sending packets until interrupted using `Ctrl+C`.
-- **Lightweight:** Uses Python standard libraries without external Python dependencies.
-- **Terminal Friendly:** Clean output with optional ANSI colors.
+- ICMP Echo Request and Reply
+- IPv4 and IPv6 support
+- Hostname and IP address support
+- Configurable packet count
+- Configurable packet interval
+- Response timeout control
+- Round-trip time (RTT) measurement
+- TTL information when available
+- Packet transmission and reception statistics
+- Packet loss percentage
+- Minimum, average and maximum RTT
+- Continuous ping with Ctrl+C interruption
+- Lightweight terminal-based interface
 
 ## Installation — Kali Linux
 
-### 1. Install requirements
+### 1. Install prerequisites
 
 ```bash
 sudo apt update
@@ -42,31 +45,39 @@ sudo apt install -y git python3 python3-pip pipx
 git clone https://github.com/ishasonaria568-prog/pingx-cli.git
 ```
 
-### 3. Enter the project directory
+### 3. Enter the repository
 
 ```bash
 cd pingx-cli
 ```
 
-### 4. Install using pipx
+### 4. Enter the actual Python project directory
+
+**Important:** The Python application and `pyproject.toml` are located inside the `ping-tool/` directory.
+
+```bash
+cd ping-tool
+```
+
+### 5. Install PINGX using pipx
 
 ```bash
 pipx install .
 ```
 
-### 5. Verify installation
+### 6. Verify installation
 
 ```bash
 pingx --version
 ```
 
-If the command is not found, ensure pipx's binary directory is added to your PATH:
+If the command is not found, run:
 
 ```bash
 pipx ensurepath
 ```
 
-Restart your terminal if required.
+Restart your terminal and try again.
 
 ## Usage
 
@@ -94,7 +105,7 @@ pingx google.com -c 5
 pingx google.com -c 10 -i 1
 ```
 
-### Set response timeout
+### Configure response timeout
 
 ```bash
 pingx google.com -W 3
@@ -124,19 +135,21 @@ pingx google.com --no-color
 pingx google.com -c 0
 ```
 
-Press `Ctrl+C` to stop continuous ping and display the final statistics.
+Press `Ctrl+C` to stop the operation and display the final statistics.
 
-### View help
+### Display help
 
 ```bash
 pingx --help
 ```
 
-### View version
+### Display version
 
 ```bash
 pingx --version
 ```
+
+*Note: Available options depend on the implemented CLI arguments. Refer to `pingx --help` for the exact supported syntax.*
 
 ## Example Output
 
@@ -153,61 +166,77 @@ PING google.com (142.250.x.x): 56 data bytes
 rtt min/avg/max/mdev = 23.810/24.320/25.100/0.481 ms
 ```
 
-*Output values above are illustrative.*
+*Example output is illustrative.*
 
 ## Project Structure
 
 ```text
 pingx-cli/
-├── pingx/
-│   ├── __init__.py
-│   ├── cli.py
-│   ├── icmp.py
-│   ├── statistics.py
-│   └── utils.py
-├── tests/
-│   ├── __init__.py
-│   ├── test_cli.py
-│   ├── test_icmp.py
-│   └── test_statistics.py
-├── pyproject.toml
 ├── README.md
-├── LICENSE
-└── .gitignore
+├── metadata.json
+└── ping-tool/
+    ├── pingx/
+    │   ├── __init__.py
+    │   ├── cli.py
+    │   ├── icmp.py
+    │   ├── statistics.py
+    │   └── utils.py
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── test_cli.py
+    │   ├── test_icmp.py
+    │   └── test_statistics.py
+    ├── pyproject.toml
+    ├── README.md
+    └── LICENSE
 ```
 
 ## Run Tests
 
-Run the test suite using Python's built-in unittest framework:
+Navigate to the Python project directory:
+
+```bash
+cd ~/pingx-cli/ping-tool
+```
+
+Run the test suite:
 
 ```bash
 python3 -m unittest discover tests -v
+```
+
+## Uninstallation
+
+To uninstall PINGX:
+
+```bash
+pipx uninstall pingx
 ```
 
 ## Technical Details
 
 | Component | Technology |
 |---|---|
-| Language | Python |
-| Protocol | ICMP / ICMPv6 |
-| CLI Framework | argparse |
-| Networking | socket, select |
-| Statistics | Python |
+| Programming Language | Python |
+| Network Protocol | ICMP / ICMPv6 |
+| CLI | argparse |
+| Networking | Python socket |
 | Packaging | setuptools |
 | Installation | pipx |
 | Primary Platform | Kali Linux |
 
 ## Responsible Usage
 
-PINGX is designed for legitimate network connectivity testing and troubleshooting.
+PINGX is intended for legitimate network connectivity testing and troubleshooting.
 
-Use it only on systems and networks you own or have permission to test. Respect network policies and avoid excessive packet transmission.
+Use it only on networks and systems you own or have permission to test. Avoid excessive packet transmission.
 
 ## Developer
 
 **Isha Sonaria**
 
 - GitHub: https://github.com/ishasonaria568-prog
+- Repository: https://github.com/ishasonaria568-prog/pingx-cli
 - Tool: PINGX
 - Version: 1.0.0
 - License: MIT
@@ -215,5 +244,5 @@ Use it only on systems and networks you own or have permission to test. Respect 
 ---
 
 <p align="center">
-  <strong>PINGX — Simple Network Diagnostics, Straight from Your Terminal.</strong>
+  <strong>PINGX — Network Diagnostics, Straight from Your Terminal.</strong>
 </p>
