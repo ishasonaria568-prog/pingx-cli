@@ -1,0 +1,6 @@
+{
+  "name": "PING — Network Diagnostic CLI Tool",
+  "description": "Lightweight, standalone Python network diagnostic CLI utility (pingx) developed by Isha Sonaria. Features ICMP Echo probing, IPv4/IPv6 support, latency measurement, and transmission statistics for Kali Linux.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

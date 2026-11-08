@@ -1,0 +1,268 @@
+Metadata-Version: 2.4
+Name: pingx
+Version: 1.0.0
+Summary: Professional Network Diagnostics CLI Tool by Isha Sonaria
+Author-email: Isha Sonaria <ishasonaria568@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/ishasonaria568-prog
+Project-URL: Repository, https://github.com/ishasonaria568-prog/ping-tool
+Project-URL: Author, https://github.com/ishasonaria568-prog
+Keywords: network,diagnostics,icmp,ping,dns,cybersecurity,kali-linux
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Information Technology
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: Security
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# PING — Network Diagnostics CLI Tool
+
+```text
+  ██████╗ ██╗███╗   ██╗ ██████╗ 
+  ██╔══██╗██║████╗  ██║██╔════╝ 
+  ██████╔╝██║██╔██╗ ██║██║  ███╗
+  ██╔═══╝ ██║██║╚██╗██║██║   ██║
+  ██║     ██║██║ ╚████║╚██████╔╝
+  ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ v1.0.0
+────────────────────────────────────────────────────────────
+PING — NETWORK DIAGNOSTICS TOOL
+BUILT BY ISHA SONARIA
+GitHub: https://github.com/ishasonaria568-prog
+────────────────────────────────────────────────────────────
+```
+
+**PING** (executable: `pingx`) is a lightweight, professional network diagnostic CLI tool built specifically for **Kali Linux**, Debian, Ubuntu, and modern UNIX/Linux distributions.
+
+Developed by **Isha Sonaria** ([GitHub Profile](https://github.com/ishasonaria568-prog)), PING empowers cybersecurity students, penetration testers, network administrators, and security professionals to conduct accurate network reachability assessments, DNS audits, RTT latency profiling, and automated report generation without external bloat.
+
+> **Note:** The command binary is named `pingx` to guarantee zero conflict with operating system native utilities.
+
+---
+
+## 🌟 Key Features
+
+### 📡 ICMP Ping Probing
+- **Dual IP Stack**: Seamless IPv4 and IPv6 ICMP support with `-4` and `-6` enforcement flags.
+- **Microsecond Precision**: Accurate Round-Trip Time (RTT) measurements with min, max, average, and jitter (`mdev`) metrics.
+- **Configurable Probing**: Custom packet count (`-c`), interval timing (`-i`), and socket timeouts (`--timeout`).
+- **TTL Extraction**: Hop count and Time-To-Live (TTL) observation.
+- **Graceful Interruption**: Safe cancellation via `CTRL+C` with on-the-fly statistics aggregation.
+
+### 🌐 DNS Diagnostics
+- **Comprehensive Resolution**: Simultaneous lookup of IPv4 (`A`) and IPv6 (`AAAA`) records.
+- **DNS Query Latency**: Real-time resolution duration measured in milliseconds.
+- **Canonical & Reverse Resolution**: Automatic CNAME discovery and PTR reverse DNS lookup.
+- **Host Error Reporting**: Instant detection of NXDOMAIN, query timeouts, and formatting anomalies.
+
+### 🛡️ Network Diagnostics & Firewall Detection
+- **Distinguish Host State**: Clearly distinguishes between:
+  - `ONLINE / REACHABLE` (ICMP Echo Reply received)
+  - `FILTERED / FIREWALLED` (ICMP blocked or administratively prohibited, but host alive or DNS resolved)
+  - `OFFLINE / UNREACHABLE` (Host down or no route)
+  - `DNS RESOLUTION FAILED` (Domain does not exist)
+  - `LOCAL NETWORK DOWN` (Gateway unreachable)
+- **Local Network Interfaces**: Auto-detects local interfaces (`eth0`, `wlan0`, `lo`), IP addresses, CIDR masks, MAC addresses, and state.
+- **Default Gateway Probe**: Identifies default gateway route and tests reachability and hop latency.
+
+### 📊 Multi-Format Reporting
+- **JSON**: Structured machine-readable audit report for automation pipelines and SIEM ingestion.
+- **TXT**: Formatted plain-text summary suitable for terminal logging and ticketing systems.
+- **HTML**: Standalone, styled cybersecurity report with dark theme, metric cards, and developer branding.
+
+---
+
+## 🔒 Safety & Operational Ethics
+
+PING is designed with strict cybersecurity safety controls:
+- **No ICMP Flooding**: Minimum packet interval is strictly enforced (minimum 0.2s) to prevent unintentional network degradation.
+- **No Packet Spoofing**: All packets originate from real local interfaces.
+- **No Stealth / Evasion**: Operates purely standard RFC 792 (IPv4 ICMP) and RFC 4443 (ICMPv6) protocols.
+- **Zero Shell Interpolation**: All system queries and socket operations are executed via strict array argv or direct Python sockets—immune to command injection.
+- **Input Sanitization**: Strict RFC 1123 hostname and IP address validation.
+
+---
+
+## 🚀 Installation on Kali Linux
+
+### Method 1: Using pipx (Recommended for Kali Linux)
+
+Kali Linux (Debian-based) enforces PEP 668 externally-managed environments. Using `pipx` ensures safe, isolated installation:
+
+```bash
+# 1. Update package lists and install pipx if not present
+sudo apt update
+sudo apt install -y pipx git python3-venv
+
+# 2. Clone the repository
+git clone https://github.com/ishasonaria568-prog/ping-tool.git
+cd ping-tool
+
+# 3. Install pingx globally in user path via pipx
+pipx install .
+
+# 4. Ensure pipx binary directory is in your PATH
+pipx ensurepath
+
+# 5. Verify installation
+pingx version
+```
+
+### Method 2: Standard pip or Developer Editable Mode
+
+```bash
+cd ping-tool
+pip install -e .
+
+# Or install directly:
+pip install .
+```
+
+### Method 3: Direct Symlink / Standalone
+
+Because `pingx` uses Python 3 standard library modules, it can be run immediately without compiling:
+
+```bash
+chmod +x ping-tool/pingx/cli.py
+sudo ln -sf "$(pwd)/ping-tool/pingx/cli.py" /usr/local/bin/pingx
+pingx version
+```
+
+---
+
+## 💻 CLI Command Usage
+
+### 1. View Help and Version
+```bash
+pingx --help
+pingx version
+```
+
+### 2. Basic Reachability Check
+```bash
+# Ping localhost
+pingx check 127.0.0.1
+
+# Ping domain
+pingx check google.com
+
+# Ping specific IP with 5 packets
+pingx check 192.168.1.1 -c 5
+```
+
+### 3. IP Stack Enforcement
+```bash
+# Force IPv4
+pingx check google.com -4
+
+# Force IPv6
+pingx check google.com -6
+```
+
+### 4. Custom Interval and Timeout
+```bash
+# Check with 3-second timeout and 0.5s interval
+pingx check google.com --timeout 3 -i 0.5 -c 8
+```
+
+### 5. DNS Diagnostics
+```bash
+# Inspect DNS records, timing, and aliases
+pingx dns google.com
+pingx dns cloudflare.com
+```
+
+### 6. Packet Statistics & Jitter Profiling
+```bash
+# Collect statistics over 10 packets with min/avg/max/mdev metrics
+pingx stats google.com -c 10
+```
+
+### 7. Network Interface & Gateway Inspection
+```bash
+# Inspect local interfaces and default gateway reachability
+pingx diag
+# or
+pingx network
+```
+
+### 8. Diagnostic Report Generation
+```bash
+# Print JSON report to stdout
+pingx report google.com -f json
+
+# Export HTML report to file
+pingx report google.com -f html -o audit_report.html
+
+# Export Plain Text report
+pingx report google.com -f txt -o audit_report.txt
+```
+
+---
+
+## 🧪 Running Unit Tests
+
+A comprehensive suite of automated tests verifies all components:
+
+```bash
+cd ping-tool
+python3 -m unittest discover tests -v
+```
+
+Tests cover:
+- Localhost IPv4 loopback ping
+- Localhost IPv6 loopback ping
+- Valid domain name resolution
+- Invalid hostname handling & rejection
+- Unreachable target and timeout handling
+- Packet loss calculation and jitter mathematics
+- Report generation (JSON, TXT, HTML)
+- Input validation against illegal injection characters
+
+---
+
+## 📁 Repository Structure
+
+```text
+ping-tool/
+├── pingx/
+│   ├── __init__.py         # Package metadata & exports
+│   ├── cli.py              # CLI argument parser & subcommands
+│   ├── diagnostics.py      # Network interfaces, gateway & host reachability
+│   ├── icmp.py             # Dual-engine ICMP socket & packet handling
+│   ├── dns.py              # DNS resolution & timing audit
+│   ├── statistics.py       # Latency, packet loss & jitter metrics
+│   ├── reporting.py        # JSON, TXT & HTML report generators
+│   └── utils.py            # ANSI colors, ASCII banner & input validators
+├── tests/
+│   ├── __init__.py
+│   ├── test_cli.py
+│   ├── test_icmp.py
+│   ├── test_dns.py
+│   ├── test_diagnostics.py
+│   ├── test_statistics.py
+│   └── test_reporting.py
+├── README.md               # Documentation & usage manual
+├── LICENSE                 # MIT License
+├── pyproject.toml          # PEP 621 build configuration & entry points
+└── requirements.txt        # Optional developer dependencies
+```
+
+---
+
+## 👤 Author & Credits
+
+- **Developer**: Isha Sonaria
+- **GitHub**: [https://github.com/ishasonaria568-prog](https://github.com/ishasonaria568-prog)
+- **License**: MIT License

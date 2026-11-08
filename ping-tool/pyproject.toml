@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pingx"
+version = "1.0.0"
+description = "Lightweight Standalone Network Diagnostics CLI Tool by Isha Sonaria"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "Isha Sonaria", email = "ishasonaria568@gmail.com" }
+]
+keywords = ["network", "diagnostics", "icmp", "ping", "dns", "cybersecurity", "kali-linux"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "Topic :: System :: Networking",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/ishasonaria568-prog"
+Repository = "https://github.com/ishasonaria568-prog/ping-tool"
+Author = "https://github.com/ishasonaria568-prog"
+
+[project.scripts]
+pingx = "pingx.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pingx*"]
